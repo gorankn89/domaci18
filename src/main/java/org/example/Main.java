@@ -15,7 +15,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             readData("imena.xlsx");
-            writeData();
+            writeData("imena.xlsx");
         } catch (FileNotFoundException e) {
             System.out.println("Nevalidna putanja!");
         } catch (IOException e) {
@@ -24,34 +24,38 @@ public class Main {
 
     }
 
-        public static void readData(String relativnaPutanjaNaSrpskomDoFajlaISadZNamStaJe) throws FileNotFoundException, IOException {
+    public static void readData(String relativnaPutanjaNaSrpskomDoFajlaISadZNamStaJe) throws FileNotFoundException, IOException {
         FileInputStream inputStream = new FileInputStream(relativnaPutanjaNaSrpskomDoFajlaISadZNamStaJe);
         XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
         XSSFSheet names = workbook.getSheet("Names");
 
 
-            for (int i = 0; i < 5 ; i++) {
-                XSSFRow row = names.getRow(i);
-                System.out.println(row.getCell(0) + " "  + row.getCell(1));
-            }
+        for (int i = 0; i < names.getLastRowNum()+1; i++) {
+            XSSFRow row = names.getRow(i);
+            System.out.println(row.getCell(0) + " " + row.getCell(1));
+        }
     }
 
-    public static void writeData() throws IOException {
-        XSSFWorkbook stranaZaUpis = new XSSFWorkbook();
-        XSSFSheet sheet1 = stranaZaUpis.getSheet("Names");
+    public static void writeData(String relativnaPutanjaNaSrpskomDoFajlaISadZNamStaJe) throws IOException {
+        FileInputStream inputStream = new FileInputStream(relativnaPutanjaNaSrpskomDoFajlaISadZNamStaJe);
+        XSSFWorkbook ObjekatExcelPrikaza = new XSSFWorkbook(inputStream);
+        XSSFSheet sheet1 = ObjekatExcelPrikaza.getSheet("Names");
         Faker laznjak = new Faker();
 //        XSSFSheet sheet1 = workbook.createSheet("IT Bootcamp Testovi");
 //        XSSFSheet sheet2 = workbook.createSheet("IT Bootcamp Domaci");
-        for (int i = 5; i < 10 ; i++) {
-             XSSFRow row = sheet1.createRow(i);
-             row.getCell(0).setCellValue(laznjak.name().firstName());
-             row.getCell(1).setCellValue(laznjak.name().lastName());
+        int cilj = sheet1.getLastRowNum()+6;
+        System.out.println(cilj);
+        for (int i = sheet1.getLastRowNum()+1; i < cilj; i++) {
+            XSSFRow row = sheet1.createRow(i);
+            row.createCell(0).setCellValue(laznjak.name().firstName());
+            row.createCell(1).setCellValue(laznjak.name().lastName());
 
         }
 
         FileOutputStream adresaImeFajla = new FileOutputStream("imena.xlsx");
-        stranaZaUpis.write(adresaImeFajla);
+        ObjekatExcelPrikaza.write(adresaImeFajla);
         adresaImeFajla.close();
+        readData("imena.xlsx");
 
 
 /*        for(int i=0; i<10; i++) {
