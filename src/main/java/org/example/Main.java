@@ -27,18 +27,18 @@ public class Main {
         public static void readData(String relativnaPutanjaNaSrpskomDoFajlaISadZNamStaJe) throws FileNotFoundException, IOException {
         FileInputStream inputStream = new FileInputStream(relativnaPutanjaNaSrpskomDoFajlaISadZNamStaJe);
         XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
-        XSSFSheet imena = workbook.getSheet("Sheet1");
+        XSSFSheet names = workbook.getSheet("Names");
 
 
             for (int i = 0; i < 5 ; i++) {
-                XSSFRow row = imena.getRow(i);
+                XSSFRow row = names.getRow(i);
                 System.out.println(row.getCell(0) + " "  + row.getCell(1));
             }
     }
 
     public static void writeData() throws IOException {
         XSSFWorkbook stranaZaUpis = new XSSFWorkbook();
-        XSSFSheet sheet1 = stranaZaUpis.getSheet("Sheet1");
+        XSSFSheet sheet1 = stranaZaUpis.getSheet("Names");
         Faker laznjak = new Faker();
 //        XSSFSheet sheet1 = workbook.createSheet("IT Bootcamp Testovi");
 //        XSSFSheet sheet2 = workbook.createSheet("IT Bootcamp Domaci");
