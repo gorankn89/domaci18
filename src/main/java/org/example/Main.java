@@ -16,6 +16,8 @@ public class Main {
         try {
             readData("imena.xlsx");
             writeData("imena.xlsx");
+            System.out.println("\n \n \n---------Novo Citanje-----------\n \n \n");
+            readData("imena.xlsx");
         } catch (FileNotFoundException e) {
             System.out.println("Nevalidna putanja!");
         } catch (IOException e) {
@@ -34,6 +36,8 @@ public class Main {
             XSSFRow row = names.getRow(i);
             System.out.println(row.getCell(0) + " " + row.getCell(1));
         }
+
+
     }
 
     public static void writeData(String relativnaPutanjaNaSrpskomDoFajlaISadZNamStaJe) throws IOException {
@@ -55,7 +59,7 @@ public class Main {
         FileOutputStream adresaImeFajla = new FileOutputStream("imena.xlsx");
         ObjekatExcelPrikaza.write(adresaImeFajla);
         adresaImeFajla.close();
-        readData("imena.xlsx");
+
 
 
 /*        for(int i=0; i<10; i++) {
